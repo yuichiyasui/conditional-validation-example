@@ -38,8 +38,8 @@ export default function App() {
     alert("確認画面に遷移します");
   };
 
-  const formData = watch();
-  const needMessage = formData.needMessage === needMessageOption.yes;
+  const needMessageValue = watch("needMessage");
+  const needMessage = needMessageValue === needMessageOption.yes;
 
   return (
     <>
@@ -182,8 +182,6 @@ export default function App() {
             内容を確認する
           </button>
         </form>
-
-        <p>{JSON.stringify(formData, null, 2)}</p>
       </main>
     </>
   );

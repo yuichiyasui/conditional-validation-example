@@ -68,6 +68,7 @@ export default function App() {
               {...register("type", {
                 required: "包装の種類を選択してください",
               })}
+              defaultValue=""
               id={idDict.type.field}
               aria-errormessage={idDict.type.errorMessage}
               aria-required
@@ -80,7 +81,7 @@ export default function App() {
                 errors.type && "select-error",
               )}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 選択してください
               </option>
               <option value="1">ラッピング</option>
@@ -100,6 +101,7 @@ export default function App() {
             </label>
             <select
               {...register("color", { required: "色を選択してください" })}
+              defaultValue=""
               id={idDict.color.field}
               aria-required
               aria-errormessage={idDict.color.errorMessage}
@@ -112,7 +114,7 @@ export default function App() {
                 errors.color && "select-error",
               )}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 選択してください
               </option>
               <option value="1">赤</option>

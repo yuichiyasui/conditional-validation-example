@@ -69,8 +69,9 @@ export default function App() {
                 required: "包装の種類を選択してください",
               })}
               id={idDict.type.field}
-              aria-describedby={idDict.type.errorMessage}
+              aria-errormessage={idDict.type.errorMessage}
               aria-required
+              aria-invalid={!!errors.type}
               className={clsx(
                 "select",
                 "select-bordered",
@@ -101,7 +102,8 @@ export default function App() {
               {...register("color", { required: "色を選択してください" })}
               id={idDict.color.field}
               aria-required
-              aria-describedby={idDict.color.errorMessage}
+              aria-errormessage={idDict.color.errorMessage}
+              aria-invalid={!!errors.color}
               className={clsx(
                 "select",
                 "select-bordered",
@@ -160,13 +162,16 @@ export default function App() {
                 })}
                 id={idDict.message.field}
                 aria-required
-                aria-describedby={idDict.message.errorMessage}
+                aria-errormessage={idDict.message.errorMessage}
+                aria-invalid={!!errors.message}
                 placeholder="お誕生日おめでとう"
                 className={clsx(
                   "textarea",
                   "textarea-bordered",
                   "max-w-xs",
                   "w-full",
+                  "placeholder:text-gray-400",
+                  "placeholder:text-opacity-50",
                   errors.message && "textarea-error",
                 )}
               ></textarea>

@@ -1,6 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { clsx } from "clsx";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormValues, needMessageOption, schema } from "./schema";
+
 type Id = {
   field: string;
   errorMessage: string;
@@ -21,25 +24,15 @@ const idDict = {
   },
 } as const satisfies Record<string, Id>;
 
-const needMessageOption = {
-  yes: "1",
-  no: "0",
-} as const;
-
-type FormValues = {
-  type: string;
-  color: string;
-  needMessage: (typeof needMessageOption)[keyof typeof needMessageOption];
-  message: string;
-};
-
 export default function App() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
 
   const onSubmit: SubmitHandler<FormValues> = () => {
     alert("確認画面に遷移します");
@@ -65,9 +58,7 @@ export default function App() {
               包装の種類
             </label>
             <select
-              {...register("type", {
-                required: "包装の種類を選択してください",
-              })}
+              {...register("type")}
               defaultValue=""
               id={idDict.type.field}
               aria-errormessage={idDict.type.errorMessage}
@@ -100,7 +91,7 @@ export default function App() {
               色
             </label>
             <select
-              {...register("color", { required: "色を選択してください" })}
+              {...register("color")}
               defaultValue=""
               id={idDict.color.field}
               aria-required
@@ -159,9 +150,7 @@ export default function App() {
                 メッセージ
               </label>
               <textarea
-                {...register("message", {
-                  required: "メッセージを入力してください",
-                })}
+                {...register("message")}
                 id={idDict.message.field}
                 aria-required
                 aria-errormessage={idDict.message.errorMessage}
